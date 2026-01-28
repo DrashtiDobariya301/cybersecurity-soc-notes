@@ -1,1 +1,132 @@
+#Ojective
+Understand the role of EDR (Endpoint Detection & Response) and SIEM (Security Information and Event Management) in SOC operations, how alerts are generated, analyzed, and used by SOC analysts for detection, investigation, and response.
 
+#Endpoint Detection & Response (EDR)
+Why EDR is Needed
+-Traditional antivirus provides surface-level protection
+-Antivirus mainly works on signature-based detection
+-Modern attacks often bypass signatures
+-EDR provides deep visibility into endpoint behavior and activities.
+
+#EDR Capabilities (SOC Perspective)
+-Detects malicious activity on endpoint devices
+-Generates alerts with severity (Low, Medium, High)
+-Enables automatic response (blocking known malicious activity)
+-Allows manual response by SOC analysts
+-Supports investigation and threat hunting
+
+#EDR Telemetry & Architecture
+
+Endpoints run EDR agents
+
+Agents collect:
+-Process execution
+-Network activity
+-File modifications
+-Registry changes
+
+Data is sent to a centralized EDR console. This data is known as telemetry
+
+The EDR console:
+-Analyzes telemetry
+-Assigns severity
+-Generates alerts for SOC analysts
+-False Positives in EDR (Behavioral detection may generate false positives)
+
+#SOC analysts must:
+-Validate alerts
+-Identify true vs false positives
+-Take appropriate action
+
+#Practical EDR Scenario
+
+Attack Flow Example:
+-Phishing email delivers malicious script
+-Script executes via PowerShell
+-PowerShell downloads additional payload
+-Attacker gains remote access
+
+#EDR Visibility:
+-Captures full execution chain
+-Shows parent-child processes
+-Logs network connections
+-Records file downloads and execution
+-This visibility is critical for incident analysis.
+
+
+##Security Information & Event Management (SIEM)##
+
+Why SIEM is Required
+Organizations generate logs from multiple sources:
+-Linux servers
+-Windows servers
+-Firewalls
+-Web servers
+-Network devices
+
+Analyzing logs individually is inefficient and ineffective.
+SIEM centralizes, correlates, and analyzes logs to detect threats.
+
+#Log Collection in SIEM
+Logs collected via:
+-Lightweight agents
+-APIs
+-Syslog
+-Manual ingestion
+
+Sources generate logs in different formats, making correlation difficult without SIEM.
+
+#Parsing & Normalization
+-Parsing: Breaking raw logs into structured fields
+-Normalization: Converting logs into a consistent format
+
+This enables efficient searching and correlation across sources.
+
+#Log Correlation (Key SIEM Function)
+Individual logs often lack context.
+Correlation Example:
+
+Web server log – website access
+
+Network log – access from unknown IP
+
+System log – PowerShell execution
+
+Correlation across multiple sources reveals malicious activity patterns.
+
+#Host-Centric vs Network-Centric Logs
+
+Host-Centric Logs:
+-File execution
+-PowerShell activity
+-Process creation
+-Application logs
+
+Network-Centric Logs:
+-SSH connections
+-VPN access
+-Firewall traffic
+-Router communication
+
+Both perspectives are essential for accurate detection.
+
+#Detection & Response in SIEM
+Rule-Based Detection
+SIEM uses predefined detection rules
+
+SOC analysts can create custom rules
+
+Example Rule:
+windows.exe AND event_id = 104 → REMOVE
+Rules help detect suspicious or malicious activity.
+
+Key Learnings
+-EDR provides deep endpoint visibility
+-SIEM centralizes and correlates security logs
+-SOC analysts rely on both tools for detection
+-Alert validation and tuning are critical SOC skills
+-Effective SOC work depends on context, correlation, and documentation
+
+Platform: TryHackMe
+Role Focus: SOC Level 1
+Topic: EDR & SIEM Fundamentals
